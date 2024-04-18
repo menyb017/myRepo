@@ -1,0 +1,30 @@
+.parent {
+  position: relative;
+
+  padding: 15px;
+  margin-bottom: 10px;
+
+  /* height: fit-content; */
+}
+
+.child {
+  position: absolute;
+  left: 380px;
+  top: 0px;
+}
+
+#otherData {
+  border: 2px solid black;
+  border-radius: 20px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  background-color: #dbd8ce;
+}
+
+.showBtn {
+  background-color: "#f4fa7a";
+  margin-left: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
