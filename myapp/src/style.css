@@ -1,7 +1,7 @@
 .parent {
   position: relative;
 
-  padding: 15px;
+  padding: 25px;
   margin-bottom: 10px;
 
   /* height: fit-content; */
@@ -9,13 +9,15 @@
 
 .child {
   position: absolute;
+  border: 2px solid black;
+  padding: 25px;
   left: 380px;
   top: 0px;
 }
 
 #otherData {
   border: 2px solid black;
-  border-radius: 20px;
+  border-radius: 30px;
   padding: 15px;
   display: flex;
   flex-direction: column;

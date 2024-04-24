@@ -14,14 +14,13 @@ export default function User(props) {
   const [isAddPostShown, setIsAddPostShown] = useState(false);
   const [isTodoShown, setIsTodoShown] = useState(true);
   const [isPostShown, setIsPostShown] = useState(true);
-  const [isColored, setIsColored] = useState(false);
   const [borderColor, setBorderColor] = useState("red");
-  const [backgroundColor, setBackgroundColor] = useState("#FF3333");
+  const [backgroundColor, setBackgroundColor] = useState("");
   const [name, setName] = useState();
   const [email, setEmail] = useState();
 
   useEffect(() => {
-    props.setSearch(props.users);
+    props.setSearchList(props.users);
   }, [props.users]);
 
   const updateUser = () => {
@@ -32,6 +31,10 @@ export default function User(props) {
 
     props.users[userIndex].name = name;
     props.users[userIndex].email = email;
+
+    alert("user updated!");
+
+    console.log(props.users);
 
     // props.userData.name = name;
     // props.userData.email = email;
@@ -48,27 +51,15 @@ export default function User(props) {
     props.setUserList(tempUsers);
   };
 
-  const changeBorderColor = () => {
-    if (props.idShown === props.userData.id) {
-      setBorderColor("green");
-      setBackgroundColor("yellowGreen");
-    } else {
-      return;
-    }
-  };
-
-  const userSection = () => {
+  const userDtails = () => {
     isUserSectionShown
       ? setIsUserSectionShown(false)
       : setIsUserSectionShown(true);
 
     if (isUserSectionShown) {
-      props.setIdShown(0);
-
-      setIsColored(false);
+      props.setIdShown(null);
     } else {
       props.setIdShown(props.userData.id);
-      setIsColored(true);
     }
   };
   const ShowAddTodo = () => {
@@ -89,7 +80,7 @@ export default function User(props) {
         <div className="child">
           <AddUser
             SetUserShown={props.setAddUserShown}
-            setSearchList={props.setSearch}
+            setSearchList={props.setSearchList}
             usersList={props.users}
             setUsersList={props.setUserList}
           />
@@ -98,13 +89,17 @@ export default function User(props) {
       <div
         className="parent"
         style={{
-          backgroundColor: isColored ? backgroundColor : "white",
+          backgroundColor:
+            props.idShown === props.userData.id
+              ? backgroundColor
+              : "transparent",
           border: `2px ${borderColor} solid`,
         }}
       >
-        <span style={{ cursor: "pointer" }} onClick={() => userSection()}>
+        <span style={{ cursor: "pointer" }} onClick={() => userDtails()}>
           ID:{props.userData.id}
         </span>
+        <br />
         <br />
         Name:&nbsp;
         <input
@@ -112,6 +107,7 @@ export default function User(props) {
           type="text"
           placeholder={props.userData.name}
         />
+        <br />
         <br />
         Email:&nbsp;
         <input
@@ -121,99 +117,106 @@ export default function User(props) {
         />
         <br />
         <br />
-        <button
-          style={{ backgroundColor: "#dbd8ce" }}
-          onClick={() =>
-            isOtherDataShown
-              ? setIsOtherDataShown(false)
-              : setIsOtherDataShown(true)
-          }
-        >
-          Other Data
-        </button>
-        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <button onClick={deleteUser} style={{ backgroundColor: "#f4fa7a" }}>
-          Delete
-        </button>
-        <button onClick={updateUser} style={{ backgroundColor: "#f4fa7a" }}>
-          Update
-        </button>
-        {isOtherDataShown ? <OtherData userData={props.userData} /> : null}
-        <div hidden={props.idShown !== props.userData.id} className="child">
-          <div>
-            {isAddTodoShown ? (
-              <AddTodo
-                setAddTodoShown={setIsAddTodoShown}
-                setTodoShown={setIsTodoShown}
-                todosList={props.userTodosList}
-                setTodosList={props.setUserTodosList}
-              />
-            ) : null}
-          </div>
-          <div>
-            {isAddPostShown ? (
-              <AddPost
-                setAddPostShown={setIsAddPostShown}
-                setPostShown={setIsPostShown}
-                postList={props.userPostList}
-                setPostList={props.setUserPostList}
-              />
-            ) : null}
-          </div>
-          <br />
-
-          {isTodoShown ? (
-            <div
-              style={{
-                border: "2px solid black",
-                padding: "10px",
-                width: "400px",
-              }}
-            >
-              <div style={{ display: "flex", alignItems: "center" }}>
-                <h4 style={{ margin: "0px" }}>
-                  Todos - User {props.userData.id}
-                </h4>
-                <button className="showBtn" onClick={ShowAddTodo}>
-                  ADD
-                </button>
-              </div>
-
-              {props.userTodos.map((todo, index) => (
-                <Todos
-                  key={index}
-                  Todos={todo}
-                  changeColor={changeBorderColor}
-                  todosList={props.userTodos}
-                />
-              ))}
-            </div>
-          ) : null}
-          <br />
-          <br />
-          {isPostShown ? (
-            <div
-              style={{
-                border: "2px solid black",
-                padding: "10px",
-                width: "400px",
-              }}
-            >
-              <div style={{ display: "flex", alignItems: "center" }}>
-                <h4 style={{ margin: "0px" }}>
-                  Posts - User {props.userData.id}
-                </h4>
-                <button className="showBtn" onClick={ShowAddPost}>
-                  ADD
-                </button>
-              </div>
-
-              {props.userPosts.map((post, index) => (
-                <Posts key={index} Posts={post} />
-              ))}
-            </div>
-          ) : null}
+        <br />
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <button
+            style={{ backgroundColor: "#dbd8ce" }}
+            onClick={() =>
+              isOtherDataShown
+                ? setIsOtherDataShown(false)
+                : setIsOtherDataShown(true)
+            }
+          >
+            Other Data
+          </button>
+          &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <button onClick={deleteUser} style={{ backgroundColor: "#f4fa7a" }}>
+            Delete
+          </button>
+          <button onClick={updateUser} style={{ backgroundColor: "#f4fa7a" }}>
+            Update
+          </button>
         </div>
+        {isOtherDataShown ? <OtherData userData={props.userData} /> : null}
+        {props.idShown === props.userData.id ? (
+          <div className="child">
+            <div>
+              {isAddTodoShown ? (
+                <AddTodo
+                  setAddTodoShown={setIsAddTodoShown}
+                  setTodoShown={setIsTodoShown}
+                  todosList={props.userTodosList}
+                  setTodosList={props.setUserTodosList}
+                />
+              ) : null}
+            </div>
+            <div>
+              {isAddPostShown ? (
+                <AddPost
+                  setAddPostShown={setIsAddPostShown}
+                  setPostShown={setIsPostShown}
+                  postList={props.userPostList}
+                  setPostList={props.setUserPostList}
+                />
+              ) : null}
+            </div>
+            <br />
+
+            {isTodoShown ? (
+              <div
+                style={{
+                  border: "2px solid black",
+                  padding: "10px",
+                  width: "400px",
+                }}
+              >
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <h4 style={{ margin: "0px" }}>
+                    Todos - User {props.userData.id}
+                  </h4>
+                  <button className="showBtn" onClick={ShowAddTodo}>
+                    ADD
+                  </button>
+                </div>
+
+                {props.userTodos.map((todo, index) => (
+                  <Todos
+                    key={index}
+                    Todos={todo}
+                    todosList={props.userTodos}
+                    setBorderColor={setBorderColor}
+                    setBackgroundColor={setBackgroundColor}
+                    isIdSelected={props.idShown === props.userData.id}
+                  />
+                ))}
+              </div>
+            ) : null}
+            <br />
+            <br />
+            {isPostShown ? (
+              <div
+                style={{
+                  border: "2px solid black",
+                  padding: "10px",
+                  width: "400px",
+                }}
+              >
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <h4 style={{ margin: "0px" }}>
+                    Posts - User {props.userData.id}
+                  </h4>
+                  <button className="showBtn" onClick={ShowAddPost}>
+                    ADD
+                  </button>
+                </div>
+
+                {props.userPosts.map((post, index) => (
+                  <Posts key={index} Posts={post} />
+                ))}
+              </div>
+            ) : null}
+          </div>
+        ) : null}
       </div>
     </div>
   );

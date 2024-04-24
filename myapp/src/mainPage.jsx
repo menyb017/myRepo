@@ -3,8 +3,8 @@ import { useEffect } from "react";
 import User from "./user";
 import { getAllUsers, getPostsById, getTodosById } from "./utils";
 
-export default function HomePage() {
-  const [id, setId] = useState(0);
+export default function MainPage() {
+  const [id, setId] = useState(null);
   const [todos, setTodos] = useState([]);
   const [posts, setPosts] = useState([]);
   const [postList, setPostList] = useState([]);
@@ -19,12 +19,12 @@ export default function HomePage() {
     setIsAddUserShown(true);
   }
 
-  const getUsersFromApi = async () => {
+  const getUsers = async () => {
     const users = await getAllUsers();
     setUsersList(users);
     setSearchList(users);
   };
-  async function getTodosAndPosts() {
+  async function getDetails() {
     const userTodos = await getTodosById(id);
     setTodos(userTodos);
     setTodosList(userTodos);
@@ -50,13 +50,14 @@ export default function HomePage() {
  
 
   useEffect(() => {
-    getUsersFromApi();
+    getUsers();
   }, []);
 
   useEffect(() => {
-    getTodosAndPosts();
+    getDetails();
   }, [id]);
 
+   
   return (
     <div id="parent">
       <div
@@ -91,7 +92,7 @@ export default function HomePage() {
             setUserTodosList={setTodosList}
             addUserShown={isAddUserShown}
             setAddUserShown={setIsAddUserShown}
-            setSearch = {setSearchList}
+            setSearchList = {setSearchList}
           />
         ))}
       </div>

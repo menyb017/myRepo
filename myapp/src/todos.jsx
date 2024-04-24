@@ -16,13 +16,12 @@ export default function Todos(props) {
     props.Todos.completed = true;
   }
 
-  useEffect(() => {}, [props.todosList]);
-
   const checkStatus = () => {
-    const check = props.todosList.findIndex((todo) => todo.completed === false);
-    if (check === -1) {
-      props.changeColor();
-    }
+    const allCompleted = props.todosList.every((todo) => todo.completed);
+    console.log(allCompleted);
+
+    props.setBorderColor(allCompleted ? "green" : "red");
+    props.setBackgroundColor(allCompleted ? "yellowGreen" : "#FF3333");
   };
   return (
     <div
