@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 export default function AddTodo(props) {
-  const [title, setTitle] = useState();
-
-  let obj = { title: title, completed: true };
+  const [obj, setObj] = useState({ userId: props.id, completed: false });
 
   const cancelBtn = () => {
     props.setAddTodoShown(false);
@@ -11,19 +9,11 @@ export default function AddTodo(props) {
   };
 
   const add = () => {
-    props.todosList.push(obj);
+    props.addTaskToList(obj);
+
     cancelBtn();
   };
 
-  useEffect(()=>{
-
-     const check = props.todosList.find(todo => todo.title !== true)
-
-     if(check === undefined)
-     {
-      
-     }
-  })
   return (
     <div style={{ border: "2px solid black", padding: "15px", width: "300px" }}>
       <div
@@ -36,7 +26,7 @@ export default function AddTodo(props) {
         <h4>Add Todo:</h4>
         <span>Title:</span>
         <input
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={(e) => setObj({ ...obj, title: e.target.value })}
           type="text"
           placeholder="add todo"
         />

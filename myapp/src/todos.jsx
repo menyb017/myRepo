@@ -15,10 +15,11 @@ export default function Todos(props) {
     setIsMarked(true);
     props.Todos.completed = true;
   }
+  
 
   const checkStatus = () => {
     const allCompleted = props.todosList.every((todo) => todo.completed);
-    console.log(allCompleted);
+    
 
     props.setBorderColor(allCompleted ? "green" : "red");
     props.setBackgroundColor(allCompleted ? "yellowGreen" : "#FF3333");

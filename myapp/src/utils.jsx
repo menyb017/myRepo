@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios from "axios";
 
 const getAllUsers = async () => {
   const { data } = await axios.get(
@@ -19,32 +19,20 @@ const getAllUsers = async () => {
   return users;
 };
 
-const getTodosById = async (id) => {
+const getTodos = async () => {
   const { data } = await axios.get(
-    `https://jsonplaceholder.typicode.com/todos/?userId=${id}`
-  );
-  const todos = data
-    .map((todo) => {
-      return { title: todo.title, completed: todo.completed };
-    })
-    .splice(0, 3);
-
-  return todos;
-};
-
-const getPostsById = async (id) => {
-  const { data } = await axios.get(
-    `https://jsonplaceholder.typicode.com/posts/?userId=${id}`
+    "https://jsonplaceholder.typicode.com/todos"
   );
 
-  const posts = data
-    .map((post) => {
-      return { title: post.title, body: post.body };
-    })
-    .splice(0, 3);
-
-  return posts;
+  return data;
 };
 
+const getPosts = async () => {
+  const { data } = await axios.get(
+    "https://jsonplaceholder.typicode.com/posts"
+  );
 
-export { getAllUsers, getPostsById, getTodosById };
+  return data;
+};
+
+export { getAllUsers, getPosts, getTodos };

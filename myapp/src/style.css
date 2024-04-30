@@ -9,8 +9,7 @@
 
 .child {
   position: absolute;
-  border: 2px solid black;
-  padding: 25px;
+
   left: 380px;
   top: 0px;
 }

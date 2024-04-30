@@ -35,9 +35,6 @@ export default function User(props) {
     alert("user updated!");
 
     console.log(props.users);
-
-    // props.userData.name = name;
-    // props.userData.email = email;
   };
 
   const deleteUser = () => {
@@ -48,7 +45,7 @@ export default function User(props) {
 
     tempUsers.splice(userIndex, 1);
 
-    props.setUserList(tempUsers);
+    props.setUsers(tempUsers);
   };
 
   const userDtails = () => {
@@ -82,7 +79,9 @@ export default function User(props) {
             SetUserShown={props.setAddUserShown}
             setSearchList={props.setSearchList}
             usersList={props.users}
-            setUsersList={props.setUserList}
+            setUsersList={props.setUsers}
+            setCount={props.setUserCount}
+            userCount={props.userCount}
           />
         </div>
       ) : null}
@@ -145,8 +144,10 @@ export default function User(props) {
                 <AddTodo
                   setAddTodoShown={setIsAddTodoShown}
                   setTodoShown={setIsTodoShown}
-                  todosList={props.userTodosList}
-                  setTodosList={props.setUserTodosList}
+                  todosList={props.userTodos}
+                  setTodosList={props.setUserTodos}
+                  id={props.userData.id}
+                  addTaskToList={props.addTaskToList}
                 />
               ) : null}
             </div>
@@ -155,8 +156,10 @@ export default function User(props) {
                 <AddPost
                   setAddPostShown={setIsAddPostShown}
                   setPostShown={setIsPostShown}
-                  postList={props.userPostList}
-                  setPostList={props.setUserPostList}
+                  postList={props.userPosts}
+                  setPostList={props.setUserPosts}
+                  addPostToList={props.addPostToList}
+                  id={props.userData.id}
                 />
               ) : null}
             </div>
@@ -186,7 +189,6 @@ export default function User(props) {
                     todosList={props.userTodos}
                     setBorderColor={setBorderColor}
                     setBackgroundColor={setBackgroundColor}
-                    isIdSelected={props.idShown === props.userData.id}
                   />
                 ))}
               </div>

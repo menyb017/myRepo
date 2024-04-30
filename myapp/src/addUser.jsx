@@ -3,22 +3,17 @@ import React, { useEffect, useRef, useState } from "react";
 export default function AddUser(props) {
   const [name, setName] = useState();
   const [email, setEmail] = useState();
-  const [count, setCount] = useState(props.usersList.length);
-  const prev = useRef();
 
-  useEffect(() => {
-    prev.current = count;
-  }, [count]);
 
   useEffect(() => {
     props.setSearchList(props.usersList);
   }, [props.usersList]);
 
   const addNewUser = () => {
-    setCount((c) => c + 1);
-
+  
+    props.setCount(props.userCount + 1);
     const obj = {
-      id: count + 1,
+      id: props.userCount + 1,
       name: name,
       email: email,
       street: "",
@@ -29,6 +24,8 @@ export default function AddUser(props) {
     const newUsers = [...props.usersList, obj];
 
     props.setUsersList(newUsers);
+
+    
   };
 
   return (

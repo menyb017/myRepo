@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
 export default function AddPost(props) {
-  const [title, setTitle] = useState();
-  const [body, setBody] = useState();
+ 
+  const [obj, setObj] = useState({ userId: props.id });
 
-  let obj = { title: title, body: body };
+  
 
   const cancelBtn = () => {
     props.setAddPostShown(false);
@@ -12,7 +12,9 @@ export default function AddPost(props) {
   };
 
   const add = () => {
-    props.postList.push(obj);
+   
+    props.addPostToList(obj)
+   
     cancelBtn();
   };
 
@@ -27,10 +29,10 @@ export default function AddPost(props) {
       >
         <h4>Add Post:</h4>
         <span>Title:</span>
-        <input onChange={(e) => setTitle(e.target.value)} type="text" />
+        <input onChange={(e) => setObj({...obj, title: e.target.value})} type="text" />
         <br />
         <span>Body:</span>
-        <input onChange={(e) => setBody(e.target.value)} type="text" />
+        <input onChange={(e) => setObj({...obj, body: e.target.value})} type="text" />
       </div>
 
       <br />
