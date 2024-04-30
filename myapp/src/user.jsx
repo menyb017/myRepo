@@ -120,11 +120,8 @@ export default function User(props) {
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <button
             style={{ backgroundColor: "#dbd8ce" }}
-            onClick={() =>
-              isOtherDataShown
-                ? setIsOtherDataShown(false)
-                : setIsOtherDataShown(true)
-            }
+            onMouseOver={() => setIsOtherDataShown(true)}
+            onClick={() => setIsOtherDataShown(false)}
           >
             Other Data
           </button>
