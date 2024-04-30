@@ -25,7 +25,9 @@ export default function AddUser(props) {
 
     props.setUsersList(newUsers);
 
-    
+    props.SetUserShown(false);
+
+
   };
 
   return (
