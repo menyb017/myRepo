@@ -18,10 +18,22 @@ export default function User(props) {
   const [backgroundColor, setBackgroundColor] = useState("");
   const [name, setName] = useState();
   const [email, setEmail] = useState();
+  const [userTodos, setUserTodos] = useState([]);
+  const [userPosts, setUserPosts] = useState([]);
+
+  useEffect(() => {
+    setUserTodos(
+      props.todos.filter((todo) => todo.userId === props.selectedId)
+    );
+
+    setUserPosts(
+      props.posts.filter((post) => post.userId === props.selectedId)
+    );
+  }, [props.selectedId]);
 
   useEffect(() => {
     props.setSearchList(props.users);
-  }, [props.users]);
+  }, [props.selectedId]);
 
   const updateUser = () => {
     console.log(props.users);
@@ -48,15 +60,29 @@ export default function User(props) {
     props.setUsers(tempUsers);
   };
 
+  const addTaskToList = (val) => {
+    setUserTodos((prevTodos) => [...prevTodos, val]);
+
+    const updatedTodos = [...props.todos, val];
+    props.setTodos(updatedTodos);
+  };
+
+  const addPostToList = (val) => {
+    setUserPosts((prevPosts) => [...prevPosts, val]);
+
+    const updatedPosts = [...props.posts, val];
+    props.setUserPosts(updatedPosts);
+  };
+
   const userDtails = () => {
     isUserSectionShown
       ? setIsUserSectionShown(false)
       : setIsUserSectionShown(true);
 
     if (isUserSectionShown) {
-      props.setIdShown(null);
+      props.setId(null);
     } else {
-      props.setIdShown(props.userData.id);
+      props.setId(props.userData.id);
     }
   };
   const ShowAddTodo = () => {
@@ -89,7 +115,7 @@ export default function User(props) {
         className="parent"
         style={{
           backgroundColor:
-            props.idShown === props.userData.id
+            props.selectedId === props.userData.id
               ? backgroundColor
               : "transparent",
           border: `2px ${borderColor} solid`,
@@ -134,17 +160,17 @@ export default function User(props) {
           </button>
         </div>
         {isOtherDataShown ? <OtherData userData={props.userData} /> : null}
-        {props.idShown === props.userData.id ? (
+        {props.selectedId === props.userData.id ? (
           <div className="child">
             <div>
               {isAddTodoShown ? (
                 <AddTodo
                   setAddTodoShown={setIsAddTodoShown}
                   setTodoShown={setIsTodoShown}
-                  todosList={props.userTodos}
-                  setTodosList={props.setUserTodos}
+                  todosList={userTodos}
+                  setTodosList={setUserTodos}
                   id={props.userData.id}
-                  addTaskToList={props.addTaskToList}
+                  addTaskToList={addTaskToList}
                 />
               ) : null}
             </div>
@@ -153,9 +179,9 @@ export default function User(props) {
                 <AddPost
                   setAddPostShown={setIsAddPostShown}
                   setPostShown={setIsPostShown}
-                  postList={props.userPosts}
-                  setPostList={props.setUserPosts}
-                  addPostToList={props.addPostToList}
+                  postList={userPosts}
+                  setPostList={setUserPosts}
+                  addPostToList={addPostToList}
                   id={props.userData.id}
                 />
               ) : null}
@@ -179,11 +205,11 @@ export default function User(props) {
                   </button>
                 </div>
 
-                {props.userTodos.map((todo, index) => (
+                {userTodos.map((todo, index) => (
                   <Todos
                     key={index}
                     Todos={todo}
-                    todosList={props.userTodos}
+                    todosList={userTodos}
                     setBorderColor={setBorderColor}
                     setBackgroundColor={setBackgroundColor}
                   />
@@ -209,7 +235,7 @@ export default function User(props) {
                   </button>
                 </div>
 
-                {props.userPosts.map((post, index) => (
+                {userPosts.map((post, index) => (
                   <Posts key={index} Posts={post} />
                 ))}
               </div>

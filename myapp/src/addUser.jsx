@@ -1,16 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function AddUser(props) {
   const [name, setName] = useState();
   const [email, setEmail] = useState();
-
 
   useEffect(() => {
     props.setSearchList(props.usersList);
   }, [props.usersList]);
 
   const addNewUser = () => {
-  
+    console.log("i am in");
+
     props.setCount(props.userCount + 1);
     const obj = {
       id: props.userCount + 1,
@@ -25,9 +25,7 @@ export default function AddUser(props) {
 
     props.setUsersList(newUsers);
 
-    props.SetUserShown(false);
-
-
+    console.log("user added");
   };
 
   return (
