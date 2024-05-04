@@ -31,10 +31,6 @@ export default function User(props) {
     );
   }, [props.selectedId]);
 
-  useEffect(() => {
-    props.setSearchList(props.users);
-  }, [props.selectedId]);
-
   const updateUser = () => {
     console.log(props.users);
     const userIndex = props.users.findIndex(
@@ -45,8 +41,6 @@ export default function User(props) {
     props.users[userIndex].email = email;
 
     alert("user updated!");
-
-    console.log(props.users);
   };
 
   const deleteUser = () => {
@@ -57,7 +51,9 @@ export default function User(props) {
 
     tempUsers.splice(userIndex, 1);
 
-    props.setUsers(tempUsers);
+    props.updateList(tempUsers);
+
+    console.log(props.users);
   };
 
   const addTaskToList = (val) => {
@@ -146,8 +142,11 @@ export default function User(props) {
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <button
             style={{ backgroundColor: "#dbd8ce" }}
-            onMouseOver={() => setIsOtherDataShown(true)}
-            onClick={() => setIsOtherDataShown(false)}
+            onClick={() =>
+              isOtherDataShown
+                ? setIsOtherDataShown(false)
+                : setIsOtherDataShown(true)
+            }
           >
             Other Data
           </button>

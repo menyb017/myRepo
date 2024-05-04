@@ -14,7 +14,6 @@ export default function MainPage() {
   const [userCount, setUserCount] = useState(0);
 
   function addNewUser() {
-
     setId(null);
 
     setIsAddUserShown(true);
@@ -53,6 +52,14 @@ export default function MainPage() {
     getData();
   }, []);
 
+  const updateList = (newList) => {
+    setUsersList(newList);
+  };
+
+  useEffect(() => {
+    setSearchList(usersList);
+  }, [usersList]);
+
   return (
     <div id="parent">
       <div
@@ -85,8 +92,9 @@ export default function MainPage() {
             userCount={userCount}
             setUserCount={setUserCount}
             setIsAddUserShown={setIsAddUserShown}
-            selectedId = {id}
-            setId = {setId}
+            selectedId={id}
+            setId={setId}
+            updateList={updateList}
           />
         ))}
       </div>

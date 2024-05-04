@@ -9,8 +9,6 @@ export default function AddUser(props) {
   }, [props.usersList]);
 
   const addNewUser = () => {
-    console.log("i am in");
-
     props.setCount(props.userCount + 1);
     const obj = {
       id: props.userCount + 1,
@@ -24,8 +22,6 @@ export default function AddUser(props) {
     const newUsers = [...props.usersList, obj];
 
     props.setUsersList(newUsers);
-
-    console.log("user added");
   };
 
   return (
