@@ -71,7 +71,7 @@ export default function User(props) {
     setUserPosts((prevPosts) => [...prevPosts, val]);
 
     const updatedPosts = [...props.posts, val];
-    props.setUserPosts(updatedPosts);
+    props.setPosts(updatedPosts);
   };
 
   const userDtails = () => {
