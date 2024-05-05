@@ -71,9 +71,7 @@ export default function User(props) {
   };
 
   const userDtails = () => {
-    isUserSectionShown
-      ? setIsUserSectionShown(false)
-      : setIsUserSectionShown(true);
+    setIsUserSectionShown(!isUserSectionShown);
 
     if (isUserSectionShown) {
       props.setId(null);
@@ -82,15 +80,15 @@ export default function User(props) {
     }
   };
   const ShowAddTodo = () => {
-    isAddTodoShown ? setIsAddTodoShown(false) : setIsAddTodoShown(true);
+    setIsAddTodoShown(!isAddTodoShown);
 
-    isTodoShown ? setIsTodoShown(false) : setIsTodoShown(true);
+    setIsTodoShown(!isTodoShown);
   };
 
   const ShowAddPost = () => {
-    isAddPostShown ? setIsAddPostShown(false) : setIsAddPostShown(true);
+    setIsAddPostShown(!isAddPostShown);
 
-    isPostShown ? setIsPostShown(false) : setIsPostShown(true);
+    setIsPostShown(!isPostShown);
   };
 
   return (
@@ -142,11 +140,7 @@ export default function User(props) {
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <button
             style={{ backgroundColor: "#dbd8ce" }}
-            onClick={() =>
-              isOtherDataShown
-                ? setIsOtherDataShown(false)
-                : setIsOtherDataShown(true)
-            }
+            onClick={() => setIsOtherDataShown(!isOtherDataShown)}
           >
             Other Data
           </button>
